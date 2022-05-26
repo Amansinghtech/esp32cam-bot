@@ -19,8 +19,8 @@
 
 #include "camera_pins.h"
 
-const char* ssid = "Home-AP";
-const char* password = "routerkiller5";
+const char* ssid = "ESP32";
+const char* password = "password123";
 
 void startCameraServer();
 
@@ -47,6 +47,7 @@ void setup() {
 
   //------------my code from here --------------
   pinMode(4, OUTPUT);
+  pinMode(2, OUTPUT);
   digitalWrite(4, HIGH);
 //  setup_routing();
 
@@ -113,20 +114,26 @@ void setup() {
   s->set_hmirror(s, 1);
 #endif
 
-  WiFi.begin(ssid, password);
+//  WiFi.begin(ssid, password);
+//
+//  while (WiFi.status() != WL_CONNECTED) {
+//    delay(500);
+//    Serial.print(".");
+//  }
+//  Serial.println("");
+//  Serial.println("WiFi connected");
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected");
+  WiFi.softAP(ssid, password);
+
+  Serial.println("AccessPoint Started!...");
 
   startCameraServer();
 
   Serial.print("Camera Ready! Use 'http://");
   digitalWrite(4, LOW);
-  Serial.print(WiFi.localIP());
+  digitalWrite(2, HIGH);
+  Serial.print(WiFi.softAPIP());
+//Serial.print("192.168.4.1");
   Serial.println("' to connect");
 }
 

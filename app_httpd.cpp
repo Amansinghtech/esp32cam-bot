@@ -511,6 +511,12 @@ static esp_err_t cmd_handler(httpd_req_t *req){
     else if(!strcmp(variable, "special_effect")) res = s->set_special_effect(s, val);
     else if(!strcmp(variable, "wb_mode")) res = s->set_wb_mode(s, val);
     else if(!strcmp(variable, "ae_level")) res = s->set_ae_level(s, val);
+//    my else if commands 
+    else if (!strcmp(variable, "led")) {
+//        res=-1;
+        digitalWrite(4, val);
+        Serial.println(val);
+      }
     else if(!strcmp(variable, "face_detect")) {
         detection_enabled = val;
         if(!detection_enabled) {
